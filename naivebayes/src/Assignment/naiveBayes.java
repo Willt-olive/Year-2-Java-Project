@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class naiveBayes {
 	
-	String csvFile= "C:/Users/willi/Documents/GitHub/Year-2-Java-Assignment/MLdata.csv";
+	String csvFile= "MLdata.csv";
 	String line[];
 	
 	int linecount = 0;
@@ -37,7 +37,6 @@ public class naiveBayes {
 					linecount++;
 				}
 			}
-			System.out.println(linecount);
 		}
 		catch (IOException e)
 		{
