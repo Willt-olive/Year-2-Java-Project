@@ -8,32 +8,32 @@ public class naiveBayes {
 	String row[];
 	
 	int rowcount = 0;
-	double gender;
-	double parentJob;
-	double works;
-	double lives;
-	double takesBusiness;
+	double male, female;
+	double parentJob, noparentJob;
+	double works, noworks;
+	double rural, urban;
+	double takesBusiness, notakesBusiness;
 	double chanceOfEntre;
 	
-	double genderNOT;
-	double parentJobNOT;
-	double worksNOT;
-	double livesNOT;
-	double takesBusinessNOT;
+	double maleNOT, femaleNOT;
+	double parentJobNOT, noparentJobNOT;
+	double worksNOT, noworksNOT;
+	double ruralNOT, urbanNOT;
+	double takesBusinessNOT, notakesBusinessNOT;
 	double chanceOfEntreNOT;
 	
-	double genderLike;
-	double parentJobLike;
-	double worksLike;
-	double livesLike;
-	double takesBusinessLike;
+	double maleLike, femaleLike;
+	double parentJobLike, noparentJobLike;
+	double worksLike, noworksLike;
+	double ruralLike, urbanLike;
+	double takesBusinessLike, notakesBusinessLike;
 	double chanceOfEntreLike;
 	
-	double genderNOTLike;
-	double parentJobNOTLike;
-	double worksNOTLike;
-	double livesNOTLike;
-	double takesBusinessNOTLike;
+	double maleNOTLike, femaleNOTLike;
+	double parentJobNOTLike, noparentJobNOTLike;
+	double worksNOTLike, noworksNOTLike;
+	double ruralNOTLike, urbanNOTLike;
+	double takesBusinessNOTLike, notakesBusinessNOTLike;
 	double chanceOfEntreNOTLike;	
 	
 	public naiveBayes(String csvFile)
@@ -63,34 +63,60 @@ public class naiveBayes {
 					
 					if(row[0].equals("Male"))
 					{
-						gender++;
-
+						male++;
+					}
+					else
+					{
+						female++;
 					}
 					
 					if(row[1].equals("Yes"))
 					{
 						parentJob++;
 					}
+					else
+					{
+						noparentJob++;
+					}
 					
 					if(row[2].equals("Yes"))
 					{
 						works++;
 					}
+					else
+					{
+						noworks++;
+					}
 					
 					if(row[3].equals("Rural"))
 					{
-						lives++;
+						rural++;
+					}
+					else
+					{
+						urban++;
 					}
 					
 					if(row[4].equals("Yes"))
 					{
 						takesBusiness++;
 					}
-					genderLike = gender/rowcount;
+					else
+					{
+						notakesBusiness++;
+					}
+					
+					maleLike = male/rowcount;
+					femaleLike = female/rowcount;
 					parentJobLike = parentJob/rowcount;
+					noparentJobLike = noparentJob/rowcount;
 					worksLike = works/rowcount;
-					livesLike = lives/rowcount;
+					noworksLike = noworks/rowcount;
+					ruralLike = rural/rowcount;
+					urbanLike = urban/rowcount;
 					takesBusinessLike = takesBusiness/rowcount;
+					notakesBusinessLike = notakesBusiness/rowcount;
+					
 					chanceOfEntreLike = chanceOfEntre/rowcount;
 					
 					}
@@ -101,52 +127,98 @@ public class naiveBayes {
 
 					if(row[0].equals("Male"))
 					{
-						genderNOT++;
+						maleNOT++;
+					}
+					else
+					{
+						femaleNOT++;
 					}
 					
 					if(row[1].equals("Yes"))
 					{
 						parentJobNOT++;
 					}
+					else
+					{
+						noparentJobNOT++;
+					}
 					
 					if(row[2].equals("Yes"))
 					{
 						worksNOT++;
 					}
+					else
+					{
+						noworksNOT++;
+					}
 					
 					if(row[3].equals("Rural"))
 					{
-						livesNOT++;
+						ruralNOT++;
+					}
+					else
+					{
+						urbanNOT++;
 					}
 					
 					if(row[4].equals("Yes"))
 					{
 						takesBusinessNOT++;
 					}
-					genderNOTLike = genderNOT/rowcount;
+					else
+					{
+						notakesBusinessNOT++;
+					}
+					
+					maleNOTLike = maleNOT/rowcount;
+					femaleNOTLike = femaleNOT/rowcount;
 					parentJobNOTLike = parentJobNOT/rowcount;
+					noparentJobNOTLike = noparentJobNOT/rowcount;
 					worksNOTLike = worksNOT/rowcount;
-					livesNOTLike = livesNOT/rowcount;
+					noworksNOTLike = noworksNOT/rowcount;
+					ruralNOTLike = ruralNOT/rowcount;
+					urbanNOTLike = urbanNOT/rowcount;
 					takesBusinessNOTLike = takesBusinessNOT/rowcount;
+					notakesBusinessNOTLike = notakesBusinessNOT/rowcount;
+
 					chanceOfEntreNOTLike = chanceOfEntreNOT/rowcount;
 					
 				}
 			}
+			
+			System.out.print(female);
+			System.out.print("\n");
+			System.out.print(male);
+			
 			System.out.print("For Entreprenuer\n");
-			System.out.print("\nLikelyhood of being male: "+genderLike+
+			System.out.print("\nLikelyhood of being male: "+maleLike+
+					"\nLikelyhood of being female: "+femaleLike+
 					"\nLikelyhood of parents having own business: "+parentJobLike+
+					"\nLikelyhood of parents not having own business: "+noparentJobLike+
 					"\nLikelyhood of part time job: "+worksLike+
-					"\nLikelyhood of Rural Address: "+livesLike+
+					"\nLikelyhood of no part time job: "+noworksLike+
+					"\nLikelyhood of Rural Address: "+ruralLike+
+					"\nLikelyhood of Urban Address: "+urbanLike+
 					"\nLikelyhood of studies business: "+takesBusinessLike+
+					"\nLikelyhood of doesn't studies business: "+notakesBusinessLike+
 					"\nLikelyhood of becoming entreprenuer: "+chanceOfEntreLike);
 			
 			System.out.print("\n\nFor Not an Entreprenuer\n");
-			System.out.print("\nLikelyhood of being male: "+genderNOTLike+
+			System.out.print("\nLikelyhood of being male: "+maleNOTLike+
+					"\nLikelyhood of being female: "+femaleNOTLike+
 					"\nLikelyhood of parents having own business: "+parentJobNOTLike+
+					"\nLikelyhood of parents not having own business: "+noparentJobNOTLike+
 					"\nLikelyhood of part time job: "+worksNOTLike+
-					"\nLikelyhood of Rural Address: "+livesNOTLike+
+					"\nLikelyhood of no part time job: "+noworksNOTLike+
+					"\nLikelyhood of Rural Address: "+ruralNOTLike+
+					"\nLikelyhood of Urban Address: "+urbanNOTLike+
 					"\nLikelyhood of studies business: "+takesBusinessNOTLike+
+					"\nLikelyhood of doesn't studies business: "+notakesBusinessNOTLike+
 					"\nLikelyhood of becoming entreprenuer: "+chanceOfEntreNOTLike);
+			
+			double test;
+			test = chanceOfEntreLike * maleLike * parentJobNOTLike * worksNOTLike * takesBusinessLike * ruralNOTLike;
+			System.out.print("\n ryan test data = "+test);
 			
 		}
 		catch (IOException e)
