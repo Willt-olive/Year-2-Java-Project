@@ -36,6 +36,14 @@ public class naiveBayes {
 	double takesBusinessNOTLike, notakesBusinessNOTLike;
 	double chanceOfEntreNOTLike;	
 	
+	double option1;
+	double option2;
+	double option3;
+	double option4;
+	double option5;
+	
+	double Entrepreneur;
+	
 	public naiveBayes(String csvFile)
 	{
 		this.csvFile = csvFile;
@@ -185,52 +193,35 @@ public class naiveBayes {
 					
 				}
 			}
-			// This is just checking all the likelihoods
 			
+			// commented out as it is not needed for demonstration
+			//but can be used later as an example of data
 			
-			System.out.print(female);
-			System.out.print("\n");
-			System.out.print(male);
-			System.out.print("\n");
-			System.out.print(maleNOT);
-			System.out.print("\n");
-			System.out.print(femaleNOT);
-			System.out.print("\n");
-			
-			System.out.print("For Entreprenuer\n");
-			System.out.print("\nLikelyhood of being male: "+maleLike+
-					"\nLikelyhood of being female: "+femaleLike+
-					"\nLikelyhood of parents having own business: "+parentJobLike+
-					"\nLikelyhood of parents not having own business: "+noparentJobLike+
-					"\nLikelyhood of part time job: "+worksLike+
-					"\nLikelyhood of no part time job: "+noworksLike+
-					"\nLikelyhood of Rural Address: "+ruralLike+
-					"\nLikelyhood of Urban Address: "+urbanLike+
-					"\nLikelyhood of studies business: "+takesBusinessLike+
-					"\nLikelyhood of doesn't studies business: "+notakesBusinessLike+
-					"\nLikelyhood of becoming entreprenuer: "+chanceOfEntreLike);
-			
-			System.out.print("\n\nFor Not an Entreprenuer\n");
-			System.out.print("\nLikelyhood of being male: "+maleNOTLike+
-					"\nLikelyhood of being female: "+femaleNOTLike+
-					"\nLikelyhood of parents having own business: "+parentJobNOTLike+
-					"\nLikelyhood of parents not having own business: "+noparentJobNOTLike+
-					"\nLikelyhood of part time job: "+worksNOTLike+
-					"\nLikelyhood of no part time job: "+noworksNOTLike+
-					"\nLikelyhood of Rural Address: "+ruralNOTLike+
-					"\nLikelyhood of Urban Address: "+urbanNOTLike+
-					"\nLikelyhood of studies business: "+takesBusinessNOTLike+
-					"\nLikelyhood of doesn't studies business: "+notakesBusinessNOTLike+
-					"\nLikelyhood of becoming entreprenuer: "+chanceOfEntreNOTLike);
-			
-			// sample test to show that the likelihood of males is low.
-			
-			double test;
-			double fortest;
-			test = chanceOfEntreLike * maleLike;
-			fortest = chanceOfEntreNOTLike * maleNOTLike;
-			System.out.print("\ntest data = "+test+" "+ fortest);
-			
+//			System.out.print("For Entreprenuer\n");
+//			System.out.print("\nLikelyhood of being male: "+maleLike+
+//					"\nLikelyhood of being female: "+femaleLike+
+//					"\nLikelyhood of parents having own business: "+parentJobLike+
+//					"\nLikelyhood of parents not having own business: "+noparentJobLike+
+//					"\nLikelyhood of part time job: "+worksLike+
+//					"\nLikelyhood of no part time job: "+noworksLike+
+//					"\nLikelyhood of Rural Address: "+ruralLike+
+//					"\nLikelyhood of Urban Address: "+urbanLike+
+//					"\nLikelyhood of studies business: "+takesBusinessLike+
+//					"\nLikelyhood of doesn't studies business: "+notakesBusinessLike+
+//					"\nLikelyhood of becoming entreprenuer: "+chanceOfEntreLike);
+//			
+//			System.out.print("\n\nFor Not an Entreprenuer\n");
+//			System.out.print("\nLikelyhood of being male: "+maleNOTLike+
+//					"\nLikelyhood of being female: "+femaleNOTLike+
+//					"\nLikelyhood of parents having own business: "+parentJobNOTLike+
+//					"\nLikelyhood of parents not having own business: "+noparentJobNOTLike+
+//					"\nLikelyhood of part time job: "+worksNOTLike+
+//					"\nLikelyhood of no part time job: "+noworksNOTLike+
+//					"\nLikelyhood of Rural Address: "+ruralNOTLike+
+//					"\nLikelyhood of Urban Address: "+urbanNOTLike+
+//					"\nLikelyhood of studies business: "+takesBusinessNOTLike+
+//					"\nLikelyhood of doesn't studies business: "+notakesBusinessNOTLike+
+//					"\nLikelyhood of becoming entreprenuer: "+chanceOfEntreNOTLike);
 		}
 		catch (IOException e)
 		{
@@ -238,4 +229,88 @@ public class naiveBayes {
 			e.printStackTrace();
 		}
 	}
+
+	public void getProbablility()
+	{
+		if(option1 == 1)
+		{
+			option1 = maleLike;
+		}
+		else
+		{
+			option1 = femaleLike;
+		}
+		if(option2 == 1)
+		{
+			option2 = parentJobLike;
+		}
+		else
+		{
+			option2 = noparentJobLike;
+		}
+		if(option3 == 1)
+		{
+			option3 = worksLike;
+		}
+		else
+		{
+			option3 = noworksLike;
+		}
+		if(option4 == 1)
+		{
+			option4 = ruralLike;
+		}
+		else
+		{
+			option4 = urbanLike;
+		}
+		if(option5 == 1)
+		{
+			option5 = takesBusinessLike;
+		}
+		else
+		{
+			option5 = notakesBusinessLike;
+		}
+		
+		
+		
+		double yesEntre;
+		double notEntre;
+		yesEntre = chanceOfEntreLike * option1 * option2 * option3 * option4 * option5;
+		notEntre = chanceOfEntreNOTLike * option1 * option2 * option3 * option4 * option5;
+		
+		System.out.println("\nchances of becoming an entrepreneur :"+yesEntre+
+				"\nchances of not becoming an entrepreneur :"+notEntre);
+		
+		
+		Entrepreneur = yesEntre - notEntre;
+		
+	}
+
+	public void setOption1(double option1) {
+		this.option1 = option1;
+	}
+
+	public void setOption2(double option2) {
+		this.option2 = option2;
+	}
+
+	public void setOption3(double option3) {
+		this.option3 = option3;
+	}
+
+	public void setOption4(double option4) {
+		this.option4 = option4;
+	}
+
+	public void setOption5(double option5) {
+		this.option5 = option5;
+	}
+
+	public double getEntrepreneur() {
+		return Entrepreneur;
+	}
+	
+	
 }

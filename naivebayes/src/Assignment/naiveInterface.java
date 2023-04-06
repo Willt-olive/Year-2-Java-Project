@@ -3,6 +3,7 @@ package Assignment;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
@@ -33,10 +34,11 @@ public class naiveInterface  extends JFrame implements ActionListener{
 	JLabel label5;
 	JOptionPane newWindow;
 	
+	naiveBayes enterData = new naiveBayes("MLdata.csv");
 	
-	public naiveInterface(String title) {
-		
-		
+	
+	public naiveInterface(String title) throws FileNotFoundException {
+		enterData.readCSV();
 		frame = new JFrame(title);
 		frame.setVisible(true);
 	    frame.setSize(290, 300);
@@ -159,57 +161,77 @@ public class naiveInterface  extends JFrame implements ActionListener{
 			if (jRadioButton1.isSelected())
 			{
 				radiob++;
+				enterData.setOption1(1);
             }
             if (jRadioButton2.isSelected())
             {
-            	radiob++;            
+            	radiob++;  
+            	enterData.setOption1(2);
             }
             if (jRadioButton3.isSelected())
             {
-            	radiob++;            
+            	radiob++;       
+            	enterData.setOption2(1);
             }
             if (jRadioButton4.isSelected())
             {
             	radiob++;      
+            	enterData.setOption2(2);
             }
             if (jRadioButton5.isSelected())
             {
-            	radiob++;       
+            	radiob++;     
+            	enterData.setOption3(1);
             }
             if (jRadioButton6.isSelected())
             {
-            	radiob++;      
+            	radiob++;   
+            	enterData.setOption3(2);
             }
             if (jRadioButton7.isSelected())
             {
             	radiob++;
+            	enterData.setOption4(1);
             }
             if (jRadioButton8.isSelected())
             {
             	radiob++;
+            	enterData.setOption4(2);
             }
             if (jRadioButton9.isSelected())
             {
             	radiob++;
+            	enterData.setOption5(1);
             }
             if (jRadioButton10.isSelected())
             {
             	radiob++;
+            	enterData.setOption5(2);
             }
 			
 			if(radiob == 5)
 			{
-				JOptionPane.showMessageDialog(this, radiob);
+				String s;
+				enterData.getProbablility();
+				if(enterData.getEntrepreneur()>0 )
+				{
+					s = "You have a higher Liklihood of becoming an entrepreneur";
+				}
+				else
+				{
+					s = "You have a higher Liklihood of not becoming an entrepreneur";
+
+				}
+				JOptionPane.showMessageDialog(this, s);
 			}
 			else
 			{
 				JOptionPane.showMessageDialog(this, "Make Sure All options Are Set");
 			}
-			System.out.print(radiob);
 		}
 		else if(e.getSource()== Button2)
 		{
-			JOptionPane.showMessageDialog(this, "Please Fill in Text Fields");
+			JOptionPane.showMessageDialog(this, "Running Test");
 		}
 	}
 }
