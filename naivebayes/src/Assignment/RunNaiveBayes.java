@@ -4,9 +4,9 @@ public class RunNaiveBayes {
 
 	public static void main(String[] args) {
 		
-		//naiveInterface myFirst = new naiveInterface("This is something");
+		naiveInterface myFirst = new naiveInterface("Entrepreneur");
 		
-		testrun plsrun = new testrun();
+		//naiveBayes plsrun = new naiveBayes();
 	}
 
 }
