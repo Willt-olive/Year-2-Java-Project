@@ -43,7 +43,6 @@ public class naiveBayes {
 					if(row[0].equals("Male"))
 					{
 						gender++;
-						System.out.print(gender);
 
 					}
 					
@@ -76,7 +75,6 @@ public class naiveBayes {
 					if(row[0].equals("Male"))
 					{
 						gender++;
-						System.out.print(gender+"\n");
 					}
 					
 					if(row[1].equals("Yes"))
