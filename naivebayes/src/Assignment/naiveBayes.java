@@ -4,7 +4,7 @@ import java.io.*;
 
 public class naiveBayes {
 	
-	String csvFile= "MLdata.csv";
+	String csvFile;
 	String row[];
 	
 	int rowcount = 0;
@@ -13,24 +13,24 @@ public class naiveBayes {
 	double works;
 	double lives;
 	double takesBusiness;
-	double chanceOfEntp;
+	double chanceOfEntre;
 	
-	public naiveBayes()
+	
+	public naiveBayes(String csvFile)
 	{
-
+		this.csvFile = csvFile;
 	}
-	
+
 	public void readCSV() throws FileNotFoundException
 	{
-		BufferedReader readcsv = new BufferedReader(new FileReader("MLdata.csv"));
+		BufferedReader readcsv = new BufferedReader(new FileReader(csvFile));
 		try
 		{
 			while((csvFile = readcsv.readLine()) != null)
 			{
 				row = csvFile.split(",");
 				
-				// skips over the top few rows in the file 
-				if(row[0] == "Female" || row[0] == "Male")
+				if(row[0].equals("Male") || row[0].equals("Female"))
 				{
 					rowcount++;
 				}
@@ -38,59 +38,65 @@ public class naiveBayes {
 				// if the person is an entrepreneur
 				if(row[5].equals("Yes"))
 				{
+					chanceOfEntre++;
+					
 					if(row[0].equals("Male"))
 					{
+						gender++;
+						System.out.print(gender);
 
 					}
 					
 					if(row[1].equals("Yes"))
 					{
-
+						parentJob++;
 					}
 					
 					if(row[2].equals("Yes"))
 					{
-
+						works++;
 					}
 					
 					if(row[3].equals("Rural"))
 					{
-
+						lives++;
 					}
 					
 					if(row[4].equals("Yes"))
 					{
-
+						takesBusiness++;
 					}
 					
 				}
 				// if the person is not an entrepreneur
 				else if(row[5].equals("No"))
 				{
+					chanceOfEntre--;
 
 					if(row[0].equals("Male"))
 					{
-
+						gender++;
+						System.out.print(gender+"\n");
 					}
 					
 					if(row[1].equals("Yes"))
 					{
-
+						parentJob++;
 					}
 					
 					if(row[2].equals("Yes"))
 					{
-
+						works++;
 					}
 					
 					if(row[3].equals("Rural"))
 					{
-
+						lives++;
 					}
 					
 					if(row[4].equals("Yes"))
 					{
-
+						takesBusiness++;
 					}
 				}
 			}
