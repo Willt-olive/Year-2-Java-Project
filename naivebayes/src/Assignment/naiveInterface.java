@@ -152,9 +152,60 @@ public class naiveInterface  extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		int radiob = 0;
+		
 		if(e.getSource() == Button1)
 		{
-			JOptionPane.showMessageDialog(this, "Please Fill in Text Fields");
+			if (jRadioButton1.isSelected())
+			{
+				radiob++;
+            }
+            if (jRadioButton2.isSelected())
+            {
+            	radiob++;            
+            }
+            if (jRadioButton3.isSelected())
+            {
+            	radiob++;            
+            }
+            if (jRadioButton4.isSelected())
+            {
+            	radiob++;      
+            }
+            if (jRadioButton5.isSelected())
+            {
+            	radiob++;       
+            }
+            if (jRadioButton6.isSelected())
+            {
+            	radiob++;      
+            }
+            if (jRadioButton7.isSelected())
+            {
+            	radiob++;
+            }
+            if (jRadioButton8.isSelected())
+            {
+            	radiob++;
+            }
+            if (jRadioButton9.isSelected())
+            {
+            	radiob++;
+            }
+            if (jRadioButton10.isSelected())
+            {
+            	radiob++;
+            }
+			
+			if(radiob == 5)
+			{
+				JOptionPane.showMessageDialog(this, radiob);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "Make Sure All options Are Set");
+			}
+			System.out.print(radiob);
 		}
 		else if(e.getSource()== Button2)
 		{
