@@ -185,10 +185,17 @@ public class naiveBayes {
 					
 				}
 			}
+			// This is just checking all the likelihoods
+			
 			
 			System.out.print(female);
 			System.out.print("\n");
 			System.out.print(male);
+			System.out.print("\n");
+			System.out.print(maleNOT);
+			System.out.print("\n");
+			System.out.print(femaleNOT);
+			System.out.print("\n");
 			
 			System.out.print("For Entreprenuer\n");
 			System.out.print("\nLikelyhood of being male: "+maleLike+
@@ -216,9 +223,13 @@ public class naiveBayes {
 					"\nLikelyhood of doesn't studies business: "+notakesBusinessNOTLike+
 					"\nLikelyhood of becoming entreprenuer: "+chanceOfEntreNOTLike);
 			
+			// sample test to show that the likelihood of males is low.
+			
 			double test;
-			test = chanceOfEntreLike * maleLike * parentJobNOTLike * worksNOTLike * takesBusinessLike * ruralNOTLike;
-			System.out.print("\n ryan test data = "+test);
+			double fortest;
+			test = chanceOfEntreLike * maleLike;
+			fortest = chanceOfEntreNOTLike * maleNOTLike;
+			System.out.print("\ntest data = "+test+" "+ fortest);
 			
 		}
 		catch (IOException e)
