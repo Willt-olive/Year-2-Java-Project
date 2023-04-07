@@ -222,8 +222,10 @@ public class naiveBayes
 		}
 	}
 
+	// calculates the liklihood of being an entrepreneur or not
 	public void getProbablility()
 	{
+		// set both options yes and no
 		if(option1 == 1)
 		{
 			option1 = maleLike;
@@ -275,9 +277,11 @@ public class naiveBayes
 			NOToption5 = notakesBusinessNOTLike;
 		}
 		
+		// scores of both entrepreneurs and non entrepreneurs
 		yesEntre = chanceOfEntreLike * option1 * option2 * option3 * option4 * option5;
 		notEntre = chanceOfEntreNOTLike * NOToption1 * NOToption2 * NOToption3 * NOToption4 * NOToption5;
 		
+		// binary test so that scores dont gets printed on self test on repeat
 		if(test == 1)
 		{
 			System.out.println("\nchances of becoming an entrepreneur :"+yesEntre+
@@ -285,12 +289,15 @@ public class naiveBayes
 			test = 0;
 		}
 		
+		// final score, if positive, entrepreneur, if negative, not
 		Entrepreneur = yesEntre - notEntre;
 	}
 	
+	// calculations for actual likelihoods
 	public void likelihood()
 	{
 		
+		//likelihoods for individual parameters
 		maleLike = male/rowcount;
 		femaleLike = female/rowcount;
 		parentJobLike = parentJob/rowcount;
@@ -302,8 +309,10 @@ public class naiveBayes
 		takesBusinessLike = takesBusiness/rowcount;
 		notakesBusinessLike = notakesBusiness/rowcount;
 		
+		// normal chance of entrepreneur
 		chanceOfEntreLike = chanceOfEntre/rowcount;
 		
+		//likelihoods for individual parameters
 		maleNOTLike = maleNOT/rowcount;
 		femaleNOTLike = femaleNOT/rowcount;
 		parentJobNOTLike = parentJobNOT/rowcount;
@@ -315,6 +324,7 @@ public class naiveBayes
 		takesBusinessNOTLike = takesBusinessNOT/rowcount;
 		notakesBusinessNOTLike = notakesBusinessNOT/rowcount;
 
+		// normal chance of not entrepreneur
 		chanceOfEntreNOTLike = chanceOfEntreNOT/rowcount;		
 	}
 
@@ -338,6 +348,8 @@ public class naiveBayes
 			e.printStackTrace();
 		}
 
+		// needs cast
+		// set to 70% and 30% but can be easily changed
 		testModeSize = (int) (rowcount * 0.7);
 		sampleTest = rowcount - testModeSize;
 		
@@ -351,7 +363,8 @@ public class naiveBayes
 				{
 					row2 = csvFile3.split(",");
 					
-					if(row2[0].equals("Female") || row2[0].equals("Male"))
+					// skips over the first few rows so only data is read
+					if(row2[0].equals("Male") || row2[0].equals("Female"))
 					{
 						
 						if(row[5].equals("Yes"))
@@ -475,12 +488,16 @@ public class naiveBayes
 		
 		BufferedReader readcsv4 = new BufferedReader(new FileReader(csvFile4));
 		
-		i = 0;
+		// set i to test mode size to skip over first 70%
+		i = testModeSize;
 		try
 		{
 			while((csvFile4 = readcsv4.readLine()) != null)
 			{
-				if(i < (testModeSize+3))
+				// use rowcount to get full 100%
+				// i is set to 70% already
+				// only going to count last 30%
+				if(i < (rowcount))
 				{	
 					row3 = csvFile4.split(",");
 					
@@ -530,11 +547,13 @@ public class naiveBayes
 					
 					getProbablility();
 					
+					// if the score is higher for yes
 					if(notEntre < yesEntre )
 					{
-						
+						// and equals yes
 						if(row3[5].equals("Yes"))
 						{
+							// they match higher percentage
 							matching++;
 						}
 						else
@@ -542,10 +561,13 @@ public class naiveBayes
 							dontMatch++;
 						}
 					}
+					// if the score is higher for no
 					else if(notEntre > yesEntre )
 					{
+						// and it is no
 						if(row3[5].equals("No"))
 						{
+							// they match, higher percentage
 							matching++;
 						}
 						else
