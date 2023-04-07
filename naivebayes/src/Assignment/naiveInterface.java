@@ -53,6 +53,7 @@ public class naiveInterface  extends JFrame implements ActionListener
 	    frame.setSize(290, 300);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setLayout(new FlowLayout());
+	    frame.setLocationRelativeTo(null);
 	    
 	    /////////////////////////////////	    
 	    
