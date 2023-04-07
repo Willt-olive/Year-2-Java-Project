@@ -6,9 +6,10 @@ public class naiveBayes {
 	
 	String csvFile;
 	String row[];
+	int rowcount = 0;
+	int i = 0;
 	
 	// variables for entrepreneurs
-	int rowcount = 0;
 	double male, female;
 	double parentJob, noparentJob;
 	double works, noworks;
@@ -71,7 +72,7 @@ public class naiveBayes {
 		{
 			while((csvFile = readcsv.readLine()) != null)
 			{
-				// seperates the words
+				// separates the words
 				row = csvFile.split(",");
 				
 				// skips over the first few rows so only data is read
@@ -79,8 +80,7 @@ public class naiveBayes {
 				{
 					// count for number of data rows, makes it scalable to .csv of any size
 					rowcount++;
-				}
-				
+				}		
 				// if the person is an entrepreneur
 				if(row[5].equals("Yes"))
 				{
@@ -183,7 +183,6 @@ public class naiveBayes {
 					{
 						notakesBusinessNOT++;
 					}
-					
 				}
 			}
 			// runs the calculations to get the likelihood
@@ -323,6 +322,151 @@ public class naiveBayes {
 		
 	}
 
+	public void testMode() throws FileNotFoundException
+	{
+		BufferedReader readcsv = new BufferedReader(new FileReader(csvFile));
+		try {
+			while((csvFile = readcsv.readLine()) != null)
+			{
+				// separates the words
+				row = csvFile.split(",");
+
+				// skips over the first few rows so only data is read
+				if(row[0].equals("Male") || row[0].equals("Female"))
+				{
+					rowcount++;	
+				}
+			}
+			readcsv.close();
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		try
+		{
+			while((csvFile = readcsv.readLine()) != null && i < (rowcount * 0.7))
+			{
+				// separates the words
+				row = csvFile.split(",");
+				
+				// skips over the first few rows so only data is read
+				if(row[0].equals("Male") || row[0].equals("Female"))
+				{
+					// if the person is an entrepreneur
+					if(row[5].equals("Yes"))
+					{
+						// count total number of all data
+						chanceOfEntre++;
+						
+						if(row[0].equals("Male"))
+						{
+							male++;
+						}
+						else
+						{
+							female++;
+						}
+						
+						if(row[1].equals("Yes"))
+						{
+							parentJob++;
+						}
+						else
+						{
+							noparentJob++;
+						}
+						
+						if(row[2].equals("Yes"))
+						{
+							works++;
+						}
+						else
+						{
+							noworks++;
+						}
+						
+						if(row[3].equals("Rural"))
+						{
+							rural++;
+						}
+						else
+						{
+							urban++;
+						}
+						
+						if(row[4].equals("Yes"))
+						{
+							takesBusiness++;
+						}
+						else
+						{
+							notakesBusiness++;
+						}
+						
+					}
+					// if the person is not an entrepreneur
+					else if(row[5].equals("No"))
+					{
+						// count total number of data
+						chanceOfEntreNOT++;
+
+						if(row[0].equals("Male"))
+						{
+							maleNOT++;
+						}
+						else
+						{
+							femaleNOT++;
+						}
+						
+						if(row[1].equals("Yes"))
+						{
+							parentJobNOT++;
+						}
+						else
+						{
+							noparentJobNOT++;
+						}
+						
+						if(row[2].equals("Yes"))
+						{
+							worksNOT++;
+						}
+						else
+						{
+							noworksNOT++;
+						}
+						
+						if(row[3].equals("Rural"))
+						{
+							ruralNOT++;
+						}
+						else
+						{
+							urbanNOT++;
+						}
+						
+						if(row[4].equals("Yes"))
+						{
+							takesBusinessNOT++;
+						}
+						else
+						{
+							notakesBusinessNOT++;
+						}
+					}
+				}		
+				
+			}
+			// runs the calculations to get the likelihood
+			likelihood();
+		}
+		catch (IOException e)
+		{
+			System.out.println("an error occured");
+			e.printStackTrace();
+		}
+	}
 	
 	// setters for the GUI to pass choices through
 	public void setOption1(double option1) {
@@ -347,7 +491,5 @@ public class naiveBayes {
 
 	public double getEntrepreneur() {
 		return Entrepreneur;
-	}
-	
-	
+	}	
 }

@@ -220,7 +220,6 @@ public class naiveInterface  extends JFrame implements ActionListener{
 				else
 				{
 					s = "You have a higher Liklihood of not becoming an entrepreneur";
-
 				}
 				JOptionPane.showMessageDialog(this, s);
 			}
@@ -231,6 +230,11 @@ public class naiveInterface  extends JFrame implements ActionListener{
 		}
 		else if(e.getSource()== Button2)
 		{
+			try {
+				enterData.testMode();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
 			JOptionPane.showMessageDialog(this, "Running Test");
 		}
 	}
