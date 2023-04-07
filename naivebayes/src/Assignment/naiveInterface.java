@@ -1,5 +1,14 @@
 package Assignment;
 
+/************************************
+ * naiveInterface: 	the purpose of this class is to show the GUI for Naive Bayes
+ * 					giving the user the option to enter in their parameters and see
+ * 					the what's the likelihood of them becoming an entrepreneur.
+ * 					also has the option to run a self test with an accuracy display.
+ * @author William Don Moore C21437002
+ * Date: 07/04/2023
+ ***********************************/
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,8 +16,8 @@ import java.io.FileNotFoundException;
 
 import javax.swing.*;
 
-public class naiveInterface  extends JFrame implements ActionListener{
-	
+public class naiveInterface  extends JFrame implements ActionListener
+{
 	JFrame frame;
 	JButton Button1;
 	JButton Button2;
@@ -37,10 +46,10 @@ public class naiveInterface  extends JFrame implements ActionListener{
 	naiveBayes enterData = new naiveBayes("MLdata.csv");
 	
 	
-	public naiveInterface(String title) throws FileNotFoundException {
+	public naiveInterface(String title) throws FileNotFoundException 
+	{
 		enterData.readCSV();
 		frame = new JFrame(title);
-		frame.setVisible(true);
 	    frame.setSize(290, 300);
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setLayout(new FlowLayout());
@@ -149,6 +158,7 @@ public class naiveInterface  extends JFrame implements ActionListener{
 		G5.add(jRadioButton10);
 	    frame.add(Button1);
 	    frame.add(Button2);
+	    frame.setVisible(true);
 	}
 
 	@Override
@@ -212,6 +222,7 @@ public class naiveInterface  extends JFrame implements ActionListener{
 			if(radiob == 5)
 			{
 				String s;
+				enterData.setTest(1);
 				enterData.getProbablility();
 				if(enterData.getEntrepreneur()>0 )
 				{
@@ -230,12 +241,24 @@ public class naiveInterface  extends JFrame implements ActionListener{
 		}
 		else if(e.getSource()== Button2)
 		{
-			try {
-				enterData.testMode();
+			double percentage = 0;
+			try
+			{
+				try
+				{
+					enterData.testMode();
+					
+					percentage = enterData.percentage;
+				}
+				catch(NullPointerException e1)
+				{
+					e1.printStackTrace();
+				}
+				
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-			JOptionPane.showMessageDialog(this, "Running Test");
+			JOptionPane.showMessageDialog(null, "Self Test Percentage: "+percentage);
 		}
 	}
 }

@@ -1,11 +1,25 @@
 package Assignment;
 
+/************************************
+ * naiveBayes: 	the purpose of this class is to calculate the likelihood of a person
+ * 				given certain parameters of becoming a entrepreneur. This is calculated
+ * 				using the Naive Bayes method.
+ * @author William Don Moore C21437002
+ * Date: 07/04/2023
+ ***********************************/
+
 import java.io.*;
 
-public class naiveBayes {
+public class naiveBayes
+{
 	
-	String csvFile;
-	String row[];
+	String csvFile;	// for read csv
+	String csvFile2;	// for testMode get size
+	String csvFile3;	// for testMode 
+	String csvFile4;	// for testMode
+	String row[];	// for read csv
+	String row2[];	// for testMode
+	String row3[];	// for testMode
 	int rowcount = 0;
 	int i = 0;
 	
@@ -55,13 +69,26 @@ public class naiveBayes {
 	double NOToption4;
 	double NOToption5;
 	
-	// variable to for the final score of being an entrepreneur
+	// variables to for the final score of being an entrepreneur
 	double Entrepreneur;
+	double yesEntre;
+	double notEntre;
 	
-	// sets the path
+	// variables for testMode
+	int test = 0;
+	int testModeSize;
+	int sampleTest;
+	double percentage;
+	int dontMatch = 0;
+	int matching = 0;
+	
+	// sets the path to csv file
 	public naiveBayes(String csvFile)
 	{
 		this.csvFile = csvFile;
+		this.csvFile2 = csvFile;
+		this.csvFile3 = csvFile;
+		this.csvFile4 = csvFile;
 	}
 
 	// reading the .csv file into the program
@@ -248,16 +275,15 @@ public class naiveBayes {
 			NOToption5 = notakesBusinessNOTLike;
 		}
 		
-		
-		
-		double yesEntre;
-		double notEntre;
 		yesEntre = chanceOfEntreLike * option1 * option2 * option3 * option4 * option5;
 		notEntre = chanceOfEntreNOTLike * NOToption1 * NOToption2 * NOToption3 * NOToption4 * NOToption5;
 		
-		System.out.println("\nchances of becoming an entrepreneur :"+yesEntre+
-				"\nchances of not becoming an entrepreneur :"+notEntre);
-		
+		if(test == 1)
+		{
+			System.out.println("\nchances of becoming an entrepreneur :"+yesEntre+
+					"\nchances of not becoming an entrepreneur :"+notEntre);
+			test = 0;
+		}
 		
 		Entrepreneur = yesEntre - notEntre;
 	}
@@ -289,183 +315,266 @@ public class naiveBayes {
 		takesBusinessNOTLike = takesBusinessNOT/rowcount;
 		notakesBusinessNOTLike = notakesBusinessNOT/rowcount;
 
-		chanceOfEntreNOTLike = chanceOfEntreNOT/rowcount;
-		
-		// commented out as it is not needed for demonstration
-		// but can be used later as an example of data
-					
-//		System.out.print("For Entrepreneur\n");
-//		System.out.print("\nLikelyhood of being male: "+maleLike+
-//				"\nLikelyhood of being female: "+femaleLike+
-//				"\nLikelyhood of parents having own business: "+parentJobLike+
-//				"\nLikelyhood of parents not having own business: "+noparentJobLike+
-//				"\nLikelyhood of part time job: "+worksLike+
-//				"\nLikelyhood of no part time job: "+noworksLike+
-//				"\nLikelyhood of Rural Address: "+ruralLike+
-//				"\nLikelyhood of Urban Address: "+urbanLike+
-//				"\nLikelyhood of studies business: "+takesBusinessLike+
-//				"\nLikelyhood of doesn't studies business: "+notakesBusinessLike+
-//				"\nLikelyhood of becoming entrepreneur: "+chanceOfEntreLike);
-//		
-//		System.out.print("\n\nFor Not an Entrepreneur\n");
-//		System.out.print("\nLikelyhood of being male: "+maleNOTLike+
-//				"\nLikelyhood of being female: "+femaleNOTLike+
-//				"\nLikelyhood of parents having own business: "+parentJobNOTLike+
-//				"\nLikelyhood of parents not having own business: "+noparentJobNOTLike+
-//				"\nLikelyhood of part time job: "+worksNOTLike+
-//				"\nLikelyhood of no part time job: "+noworksNOTLike+
-//				"\nLikelyhood of Rural Address: "+ruralNOTLike+
-//				"\nLikelyhood of Urban Address: "+urbanNOTLike+
-//				"\nLikelyhood of studies business: "+takesBusinessNOTLike+
-//				"\nLikelyhood of doesn't studies business: "+notakesBusinessNOTLike+
-//				"\nLikelyhood of becoming entrepreneur: "+chanceOfEntreNOTLike);
-		
+		chanceOfEntreNOTLike = chanceOfEntreNOT/rowcount;		
 	}
 
 	public void testMode() throws FileNotFoundException
 	{
-		BufferedReader readcsv = new BufferedReader(new FileReader(csvFile));
+		//self tester
+		BufferedReader readcsv2 = new BufferedReader(new FileReader(csvFile2));
 		try {
-			while((csvFile = readcsv.readLine()) != null)
-			{
-				// separates the words
-				row = csvFile.split(",");
+			while((csvFile2 = readcsv2.readLine()) != null) {
+				
+				row = csvFile2.split(",");
 
-				// skips over the first few rows so only data is read
 				if(row[0].equals("Male") || row[0].equals("Female"))
 				{
-					rowcount++;	
+					rowcount = rowcount+1;	
 				}
 			}
-			readcsv.close();
+			readcsv2.close();
 		} 
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		testModeSize = (int) (rowcount * 0.7);
+		sampleTest = rowcount - testModeSize;
+		
+		BufferedReader readcsv3 = new BufferedReader(new FileReader(csvFile3));
 		try
 		{
-			while((csvFile = readcsv.readLine()) != null && i < (rowcount * 0.7))
+			i = 0;
+			while((csvFile3 = readcsv3.readLine()) != null)
 			{
-				// separates the words
-				row = csvFile.split(",");
-				
-				// skips over the first few rows so only data is read
-				if(row[0].equals("Male") || row[0].equals("Female"))
+				if(i < testModeSize)
 				{
-					// if the person is an entrepreneur
-					if(row[5].equals("Yes"))
+					row2 = csvFile3.split(",");
+					
+					if(row2[0].equals("Female") || row2[0].equals("Male"))
 					{
-						// count total number of all data
-						chanceOfEntre++;
 						
-						if(row[0].equals("Male"))
+						if(row[5].equals("Yes"))
 						{
-							male++;
+							// count total number of all data
+							chanceOfEntre++;
+							
+							if(row[0].equals("Male"))
+							{
+								male++;
+							}
+							else
+							{
+								female++;
+							}
+							
+							if(row[1].equals("Yes"))
+							{
+								parentJob++;
+							}
+							else
+							{
+								noparentJob++;
+							}
+							
+							if(row[2].equals("Yes"))
+							{
+								works++;
+							}
+							else
+							{
+								noworks++;
+							}
+							
+							if(row[3].equals("Rural"))
+							{
+								rural++;
+							}
+							else
+							{
+								urban++;
+							}
+							
+							if(row[4].equals("Yes"))
+							{
+								takesBusiness++;
+							}
+							else
+							{
+								notakesBusiness++;
+							}
+							
 						}
-						else
+						// if the person is not an entrepreneur
+						else if(row[5].equals("No"))
 						{
-							female++;
-						}
-						
-						if(row[1].equals("Yes"))
-						{
-							parentJob++;
-						}
-						else
-						{
-							noparentJob++;
-						}
-						
-						if(row[2].equals("Yes"))
-						{
-							works++;
-						}
-						else
-						{
-							noworks++;
-						}
-						
-						if(row[3].equals("Rural"))
-						{
-							rural++;
-						}
-						else
-						{
-							urban++;
-						}
-						
-						if(row[4].equals("Yes"))
-						{
-							takesBusiness++;
-						}
-						else
-						{
-							notakesBusiness++;
-						}
-						
-					}
-					// if the person is not an entrepreneur
-					else if(row[5].equals("No"))
-					{
-						// count total number of data
-						chanceOfEntreNOT++;
+							// count total number of data
+							chanceOfEntreNOT++;
 
-						if(row[0].equals("Male"))
-						{
-							maleNOT++;
-						}
-						else
-						{
-							femaleNOT++;
-						}
-						
-						if(row[1].equals("Yes"))
-						{
-							parentJobNOT++;
-						}
-						else
-						{
-							noparentJobNOT++;
-						}
-						
-						if(row[2].equals("Yes"))
-						{
-							worksNOT++;
-						}
-						else
-						{
-							noworksNOT++;
-						}
-						
-						if(row[3].equals("Rural"))
-						{
-							ruralNOT++;
-						}
-						else
-						{
-							urbanNOT++;
-						}
-						
-						if(row[4].equals("Yes"))
-						{
-							takesBusinessNOT++;
-						}
-						else
-						{
-							notakesBusinessNOT++;
-						}
+							if(row[0].equals("Male"))
+							{
+								maleNOT++;
+							}
+							else
+							{
+								femaleNOT++;
+							}
+							
+							if(row[1].equals("Yes"))
+							{
+								parentJobNOT++;
+							}
+							else
+							{
+								noparentJobNOT++;
+							}
+							
+							if(row[2].equals("Yes"))
+							{
+								worksNOT++;
+							}
+							else
+							{
+								noworksNOT++;
+							}
+							
+							if(row[3].equals("Rural"))
+							{
+								ruralNOT++;
+							}
+							else
+							{
+								urbanNOT++;
+							}
+							
+							if(row[4].equals("Yes"))
+							{
+								takesBusinessNOT++;
+							}
+							else
+							{
+								notakesBusinessNOT++;
+							}
+						}			
 					}
-				}		
-				
+					i++;
+				}
+				else
+				{
+					readcsv3.readLine();
+				}
 			}
-			// runs the calculations to get the likelihood
-			likelihood();
+			readcsv3.close();
+			likelihood();	
 		}
+		
 		catch (IOException e)
 		{
-			System.out.println("an error occured");
 			e.printStackTrace();
 		}
+		
+		BufferedReader readcsv4 = new BufferedReader(new FileReader(csvFile4));
+		
+		i = 0;
+		try
+		{
+			while((csvFile4 = readcsv4.readLine()) != null)
+			{
+				if(i < (testModeSize+3))
+				{	
+					row3 = csvFile4.split(",");
+					
+					if(row3[0].equals("Male"))
+					{
+						option1 = maleLike;
+					}
+					else
+					{
+						NOToption1 = femaleLike;
+					}
+
+					if(row3[1].equals("Yes"))
+					{
+						option2 = parentJobLike;
+					}
+					else
+					{
+						NOToption2 = noparentJobLike;
+					}
+
+					if(row3[2].equals("Yes"))
+					{
+						option3 = worksLike;
+					}
+					else
+					{
+						NOToption3 = noworksLike;
+					}
+
+					if(row3[3].equals("Yes"))
+					{
+						option4 = takesBusinessLike;
+					}
+					else
+					{
+						NOToption4 = notakesBusinessLike;
+					}
+					if(row3[4].equals("Rural"))
+					{
+						option5 = ruralLike;
+					}
+					else
+					{
+						NOToption5 = urbanLike;
+					}
+					
+					getProbablility();
+					
+					if(notEntre < yesEntre )
+					{
+						
+						if(row3[5].equals("Yes"))
+						{
+							matching++;
+						}
+						else
+						{
+							dontMatch++;
+						}
+					}
+					else if(notEntre > yesEntre )
+					{
+						if(row3[5].equals("No"))
+						{
+							matching++;
+						}
+						else
+						{
+							dontMatch++;
+						}
+					}
+					else
+					{
+						System.out.println("an error occured");
+					}
+				}
+				else
+				{
+					System.out.println("an error occured");
+				}
+				i++;
+			}
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		// needs cast
+		percentage = (double)matching/sampleTest;
+		percentage = percentage*100;
+		
+		System.out.println("Self Test is "+percentage+"%");
 	}
 	
 	// setters for the GUI to pass choices through
@@ -489,7 +598,12 @@ public class naiveBayes {
 		this.option5 = option5;
 	}
 
+	public void setTest(int test) {
+		this.test = test;
+	}
+
 	public double getEntrepreneur() {
 		return Entrepreneur;
 	}	
+
 }
