@@ -488,16 +488,12 @@ public class naiveBayes
 		
 		BufferedReader readcsv4 = new BufferedReader(new FileReader(csvFile4));
 		
-		// set i to test mode size to skip over first 70%
-		i = testModeSize;
+		i = 0;
 		try
 		{
 			while((csvFile4 = readcsv4.readLine()) != null)
 			{
-				// use rowcount to get full 100%
-				// i is set to 70% already
-				// only going to count last 30%
-				if(i < (rowcount))
+				if(i < (testModeSize+3))
 				{	
 					row3 = csvFile4.split(",");
 					
